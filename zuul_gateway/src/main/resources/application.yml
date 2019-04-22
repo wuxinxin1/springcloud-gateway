@@ -1,0 +1,33 @@
+zuul:
+  #忽略所有的服务注册到网关
+  ignored-services: "*"
+  #明确配置需要转发的路径规则
+  routes:
+    member:
+      path: /api/member/**
+      #serviceId: member-server
+      url: http://127.0.0.1:8010/
+    order:
+      path: /api/order/**
+      serviceId: order-server
+#配置服务端口号
+server:
+  port: 80
+
+#使用Eureka
+eureka:
+   instance:
+     hostname: 127.0.0.1
+     lease-renewal-interval-in-seconds: 1
+     lease-expiration-duration-in-seconds: 2
+   client:
+     service-url:
+         defaultZone: http://127.0.0.1:9001/eureka,http://127.0.0.1:9002/eureka
+     register-with-eureka: true
+     fetch-registry: true
+spring:
+  application:
+    name: zuul-gateway
+
+
+
